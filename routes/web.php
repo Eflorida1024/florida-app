@@ -26,3 +26,46 @@ Route::get('/test-user',[UserController::class,'index']);
 Route::get('/test-facade', function (UserService $userService):mixed{
     return Response::json($userService->ListUsers());
 });
+
+Route ::get('/post/{post}/comment/{comment}', function (string $postID, string $comment ):mixed{
+    return "Post ID:" . $postID ."-Comment: " . $comment;
+});
+
+Route ::get('/post/{id}', function (string $id):mixed{
+    return  $id ;
+}) ->where('id', '[0-9]+');
+
+Route ::get('/search/{search}', function (string $search):mixed{
+    return  $search ;
+}) ->where('search', '.*');
+
+Route ::get('/test/route', function (){
+    return  route('test-route') ;
+}) ->name('test-route');
+
+Route ::middleware(['user-middleware'])->group(function (){
+    Route ::get('route-middleware-group/first', function (Request $request){
+        echo 'first';
+    });
+    Route ::get('route-middleware-group/second', function (Request $request){
+        echo 'second';
+    });
+
+});
+
+Route::controller(UserController::class)->group(function(){
+    route::get('/user','index');
+    route::get('/user/first','first');
+    route::get('/user/{id}','show');
+});
+
+
+Route ::get('/token', function (Request $request){
+   return view ('token');
+});
+
+Route ::post('/token', function (Request $request){
+    return $request -> all();
+ });
+
+
