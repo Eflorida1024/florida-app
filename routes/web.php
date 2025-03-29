@@ -11,8 +11,12 @@ use Illuminate\Support\Facades\Response;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', ['name' => 'florida']);
 });
+
+Route::get('/users', [UserController::class, 'index']);
+Route::resource('products', ProductController::class);
+
 
 Route ::get('/test-container', function (Request $request):mixed{
     $input = $request->input('key');
@@ -70,9 +74,9 @@ Route ::post('/token', function (Request $request){
     return $request -> all();
  });
 
- Route::get('/user',[UserController::class, 'index']) -> middleware('user-middleware');
+//  Route::get('/user',[UserController::class, 'index']) -> middleware('user-middleware');
 
- Route::resource('products', ProductController::class);
+//  Route::resource('products', ProductController::class);
 
  Route::get('/product-list', function (ProductService $productService){
     $data['products'] = $productService->listProducts();

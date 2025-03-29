@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
 use App\Services\TaskService;
-use Psy\CodeCleaner\FunctionReturnInWriteContextPass;
 
 class ProductController extends Controller{
 
@@ -19,6 +18,7 @@ class ProductController extends Controller{
             'name' => 'Orange',
             'category' => 'fruit'
         ];
+
     $productService->insert($newProduct);
     $this->taskService->add('Add to cart');
     $this->taskService->add('Checkout');
